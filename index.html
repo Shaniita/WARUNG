@@ -6,96 +6,88 @@
   <title>Warung Mie Ayam</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
+    body {
+      background: linear-gradient(to bottom right, #ff6e40, #ffa726);
+    }
+
+    .glass-card {
+      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
     .menu-item {
-      background-color: #FFEB3B;
-      border-radius: 12px;
+      background: white;
+      border-radius: 16px;
       padding: 16px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
       text-align: center;
-      font-size: 1.2rem;
-      font-weight: bold;
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
+      font-size: 1.1rem;
+      font-weight: 600;
+      transition: all 0.2s ease-in-out;
     }
+
     .menu-item:hover {
-      transform: scale(1.05);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+      transform: translateY(-4px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
     }
-    .menu-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 16px;
-    }
+
     .menu-item input {
       width: 50px;
+      margin-top: 10px;
       padding: 5px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
       text-align: center;
-      margin-top: 8px;
     }
   </style>
 </head>
-<body class="bg-yellow-50 text-gray-800 font-sans p-4">
-  <!-- Halaman Awal -->
-  <div id="startPage" class="max-w-xl mx-auto bg-white rounded-2xl shadow-lg p-6 space-y-6 text-center">
-    <h1 class="text-3xl font-bold text-red-600">🍜 Selamat Datang!</h1>
-    <p class="text-xl">Mau makan di mana?</p>
-    <div class="flex flex-col gap-4 mt-4">
-      <button onclick="pilihTempat('Dibungkus')" class="bg-orange-400 hover:bg-orange-500 text-white text-xl py-3 rounded-xl">Dibungkus</button>
-      <button onclick="pilihTempat('Makan di Tempat')" class="bg-green-500 hover:bg-green-600 text-white text-xl py-3 rounded-xl">Makan di Tempat</button>
+<body class="text-gray-800 font-sans p-4 min-h-screen flex items-center justify-center">
+
+  <!-- Wrapper -->
+  <div class="max-w-2xl w-full space-y-6">
+
+    <!-- Halaman Pilihan Tempat -->
+    <div id="startPage" class="glass-card text-center space-y-4">
+      <h1 class="text-3xl font-bold text-white">Selamat Datang di Warung Mie Ayam</h1>
+      <p class="text-xl text-white">Pilih cara menikmati makanan:</p>
+      <div class="flex flex-col gap-4 mt-4">
+        <button onclick="pilihTempat('Dibungkus')" class="bg-white text-orange-500 font-semibold py-3 rounded-xl shadow-lg">Dibungkus</button>
+        <button onclick="pilihTempat('Makan di Tempat')" class="bg-white text-green-500 font-semibold py-3 rounded-xl shadow-lg">Makan di Tempat</button>
+      </div>
+    </div>
+
+    <!-- Halaman Menu -->
+    <div id="menuPage" class="glass-card space-y-6 hidden">
+      <h2 class="text-3xl font-bold text-center text-white">Menu Mie Ayam & Bakso</h2>
+      <form id="orderForm" class="space-y-6 text-lg">
+
+        <div class="grid grid-cols-2 gap-4">
+          <div class="menu-item">Mie Ayam Biasa<br>Rp10.000<input type="number" name="Mie Ayam Biasa" value="0" min="0"></div>
+          <div class="menu-item">Mie Ayam Pentol<br>Rp12.000<input type="number" name="Mie Ayam Pentol" value="0" min="0"></div>
+          <div class="menu-item">Mie Ayam Ceker<br>Rp13.000<input type="number" name="Mie Ayam Ceker" value="0" min="0"></div>
+          <div class="menu-item">Bakso<br>Rp13.000<input type="number" name="Bakso" value="0" min="0"></div>
+          <div class="menu-item">Bakso Special<br>Rp15.000<input type="number" name="Bakso Special" value="0" min="0"></div>
+          <div class="menu-item">Es Teh<br>Rp2.000<input type="number" name="Es Teh" value="0" min="0"></div>
+          <div class="menu-item">Es Jeruk<br>Rp3.000<input type="number" name="Es Jeruk" value="0" min="0"></div>
+        </div>
+
+        <label class="block text-white">
+          Catatan / Permintaan Khusus
+          <textarea id="notes" rows="3" class="w-full p-3 rounded-xl mt-2 border" placeholder="Misal: tanpa sambal, pedas sedang, dll."></textarea>
+        </label>
+
+        <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-4 rounded-xl text-xl shadow-xl">
+          Pesan Sekarang
+        </button>
+      </form>
     </div>
   </div>
 
-  <!-- Halaman Menu -->
-  <div id="menuPage" class="max-w-xl mx-auto bg-white rounded-2xl shadow-lg p-6 space-y-6 hidden">
-    <h1 class="text-3xl font-bold text-center text-red-600">🍜 Warung Mie Ayam & Bakso</h1>
-
-    <form id="orderForm" class="space-y-4 text-lg">
-      <div class="menu-container">
-        <div class="menu-item">
-          Mie Ayam Biasa<br>Rp10.000
-          <input type="number" name="Mie Ayam Biasa" value="0" min="0">
-        </div>
-        <div class="menu-item">
-          Mie Ayam Pentol<br>Rp12.000
-          <input type="number" name="Mie Ayam Pentol" value="0" min="0">
-        </div>
-        <div class="menu-item">
-          Mie Ayam Ceker<br>Rp13.000
-          <input type="number" name="Mie Ayam Ceker" value="0" min="0">
-        </div>
-        <div class="menu-item">
-          Bakso<br>Rp13.000
-          <input type="number" name="Bakso" value="0" min="0">
-        </div>
-        <div class="menu-item">
-          Bakso Special<br>Rp15.000
-          <input type="number" name="Bakso Special" value="0" min="0">
-        </div>
-        <div class="menu-item">
-          Es Teh<br>Rp2.000
-          <input type="number" name="Es Teh" value="0" min="0">
-        </div>
-        <div class="menu-item">
-          Es Jeruk<br>Rp3.000
-          <input type="number" name="Es Jeruk" value="0" min="0">
-        </div>
-      </div>
-
-      <div>
-        <label class="block mt-4">Catatan / Permintaan Khusus
-          <textarea id="notes" rows="3" class="w-full border rounded p-2 mt-1" placeholder="Misal: tanpa sambal, level pedas sedang, dll."></textarea>
-        </label>
-      </div>
-
-      <button type="submit" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-xl text-2xl">
-        Pesan Sekarang
-      </button>
-    </form>
-  </div>
-
   <script>
-    let tempatMakan = ""; // Simpan pilihan: Dibungkus atau Makan di Tempat
-
+    let tempatMakan = "";
     function pilihTempat(pilihan) {
       tempatMakan = pilihan;
       document.getElementById("startPage").classList.add("hidden");
@@ -113,7 +105,6 @@
     };
 
     const form = document.getElementById('orderForm');
-
     form.addEventListener('submit', function(e) {
       e.preventDefault();
       let pesan = `Halo! Saya ingin pesan:%0A(${tempatMakan})%0A`;
@@ -133,7 +124,7 @@
       }
 
       pesan += `%0A%0ATotal: Rp${total.toLocaleString()}`;
-      const nomor = "+6287816758074"; 
+      const nomor = "6287816758074";
       const url = `https://wa.me/${nomor}?text=${pesan}`;
       window.open(url, "_blank");
     });
